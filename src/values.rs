@@ -18,6 +18,7 @@ impl std::string::ToString for Value {
 }
 
 impl Value {
+    /// Add a value from the current one.
     pub fn add(&self, v: &Value) -> Value {
         return match self {
             Value::VInteger(a) => match v {
@@ -44,6 +45,31 @@ impl Value {
                 Value::VBoolean(b) => Value::VString([a.to_string(), b.to_string()].concat()),
                 Value::VString(b) => Value::VString(a.to_string() + b),
             },
+        }
+    }
+
+    /// Substract a value from the current one.
+    pub fn sub(&self, v: &Value) -> Value {
+        return match self {
+            Value::VInteger(a) => match v {
+                Value::VInteger(b) => Value::VInteger(a - b),
+                Value::VFloat(b) => Value::VFloat(*a as f64 - b),
+                Value::VBoolean(b) => Value::VInteger(a - *b as i64),
+                _ => panic!(format!("Unable to perform {:?} - {:?}", self, v))
+            },
+            Value::VFloat(a) => match v {
+                Value::VInteger(b) => Value::VFloat(a - *b as f64),
+                Value::VFloat(b) => Value::VFloat(a - b),
+                Value::VBoolean(b) => Value::VFloat(a - *b as i64 as f64), // Mandatory cast to i64 first.
+                _ => panic!(format!("Unable to perform {:?} - {:?}", self, v))
+            },
+            Value::VBoolean(a) => match v {
+                Value::VInteger(b) => Value::VInteger(*a as i64 - b),
+                Value::VFloat(b) => Value::VFloat(*a as i64 as f64 - b), // Mandatory cast to i64 first.
+                Value::VBoolean(b) => Value::VInteger(*a as i64 - *b as i64),
+                _ => panic!(format!("Unable to perform {:?} - {:?}", self, v))
+            },
+            _ => panic!(format!("Unable to perform {:?} - {:?}", self, v))
         }
     }
 }

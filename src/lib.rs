@@ -16,7 +16,8 @@ pub fn interpret(code: &[Opcode], constants: &[Value], registers: &mut [Value]) 
         match code[pc] {
             Opcode::Load(rx, c1) => registers[rx as usize] = constants[c1 as usize].clone(),
             Opcode::Add(rx, ry, rz) => registers[rx as usize] = registers[ry as usize].add(&registers[rz as usize]),
-            Opcode::Print(rx) => println!("{:?}", registers[rx as usize].to_string()),
+            Opcode::Sub(rx, ry, rz) => registers[rx as usize] = registers[ry as usize].sub(&registers[rz as usize]),
+            Opcode::Print(rx) => println!("{}", registers[rx as usize].to_string()),
             Opcode::Exit => break,
         }
         pc += 1;
