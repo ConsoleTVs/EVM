@@ -1,0 +1,7 @@
+[package]
+name = "evm"
+version = "0.1.0"
+authors = ["Erik Campobadal <soc@erik.cat>"]
+edition = "2018"
+
+[dependencies]
