@@ -7,5 +7,6 @@ pub enum Opcode {
     Load(Reg, Con),
     Add(Reg, Reg, Reg),
     Sub(Reg, Reg, Reg),
+    Mul(Reg, Reg, Reg),
     Print(Reg)
 }

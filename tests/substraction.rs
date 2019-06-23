@@ -12,8 +12,8 @@ mod tests {
     ];
 
     static REGISTERS: [Value; 2] = [
-        Value::VInteger(5), // 5 (integer).
-        Value::VInteger(10), // 10 (integer).
+        Value::VInteger(0),
+        Value::VInteger(0),
     ];
 
     #[test]
